@@ -7,16 +7,22 @@ static void	*ft_announce(void *p_data)
 
 	mutest = (t_mut *)p_data;
 	pthread_mutex_lock(&mutest->mutex);
+	usleep(2000000);
 	j = (int *)malloc(sizeof(int) * 1);
 	if (j == 0)
 		return (0);
-	printf("Ce prepare a faire sont annonce\n");
 	mutest->i = mutest->i + 1;
-	printf("salut les amis c'est squeezi, cette video numero %d est sponso lol mdr\n", mutest->i);
 	*j = mutest->i;
-	usleep(5000000);
+	ft_write("salut les amis c'est squeezi, cette video numero %d est sponso lol mdr\n", mutest, mutest->i, 0);
 	pthread_mutex_unlock(&mutest->mutex);
 	return ((void*)j);
+}
+
+ft_write(char *str, t_mut *mutest, int i, int j)
+{
+	pthread_mutex_lock(&mutest->write);
+	printf(str, i, j);
+	pthread_mutex_unlock(&mutest->write);
 }
 
 int main()
@@ -28,6 +34,7 @@ int main()
 
 	i = 0;
 	pthread_mutex_init(&mutest.mutex, NULL);
+	pthread_mutex_init(&mutest.write, NULL);
 	mutest.i = 0;
 	while (i < 5)
 	{
@@ -37,17 +44,17 @@ int main()
 			printf("Error\n");
 			return (0);
 		}
-		printf("%lu\n", youteubeur[i].thread);
+		usleep(2);
 		i++;
 	}
 	printf("fin alloc\n");
 	i = 0;
 	while (i < 5)
 	{
-		printf("commence\n");
-		pthread_join(youteubeur[i++].thread, (void **)&j);
-		printf("pid:%d: fin annonce %d\n", youteubeur[i].name, *j);
+		pthread_join(youteubeur[i].thread, (void **)&j);
+		ft_write("pid:%d: fin annonce %d\n", &mutest, youteubeur[i].name, *j);
 		free(j);
+		i++;
 	}
 	pthread_mutex_destroy(&mutest.mutex);
 	return (1);	

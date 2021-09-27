@@ -10,6 +10,7 @@
 typedef struct	s_mut
 {
 	pthread_mutex_t	mutex;
+	pthread_mutex_t	write;
 	int						i;
 	int						yt;
 }				t_mut;
