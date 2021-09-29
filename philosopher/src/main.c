@@ -29,7 +29,6 @@ int	main(int argc, char **argv)
 	t_setting			setting;
 	t_fork				**array_fork;
 	t_philosophe		**philo;
-	struct timeval		time;
 
 	if(!ft_init_setting(&setting))
 		return (ft_error(1));
@@ -37,15 +36,11 @@ int	main(int argc, char **argv)
 	philo = 0;
 	if (ft_good_format(argc, argv, &setting))
 	{
-		if (!ft_set_table(setting, &philo, &array_fork))
+		if (!ft_set_table(&setting, &philo, &array_fork))
 			return (0);
-		gettimeofday(&time, NULL);
-		while (1)
-		{
-			usleep(500000);
-			printf("time:%li\n", gettimestamp(time));
-		}
-//		if (!lunch_time(setting, philo))
+		printf("allo1: %d\n", philo[0]->setting->time[0]);
+		if (!lunch_time(&setting, philo))
+			return (0);
 		ft_free_struct(setting, philo, array_fork);
 	}
 	else

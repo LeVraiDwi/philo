@@ -6,7 +6,8 @@ SRC_PATH = ./src
 
 SRC_NAME =	main.c parsing.c struct.c\
 			error.c set_table.c free_struct.c\
-			time.c\
+			time.c lunch.c philo.c\
+
 
 OBJS = ${SRCS:.c=.o}
 
@@ -28,7 +29,7 @@ CD = cd
 			${CC} ${FLAGS} ${HEADER} -c $< -o $@
 
 ${NAME}:	${OBJS}
-			${CC} -o ${NAME} ${OBJS} ${FLAGS}
+			${CC} -o ${NAME} ${OBJS} ${FLAGS} -lpthread
 
 all:		${NAME}
 

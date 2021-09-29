@@ -61,12 +61,19 @@ int				ft_init_fork(t_fork *fork);
 void			ft_init_philo(t_philosophe *philo, t_setting *setting, t_fork *array_fork, int i);
 //set_table.c
 int				ft_create_fork(int nb_philo, t_fork **array_fork);
-int				ft_create_philo(t_setting setting, t_fork *array_fork, t_philosophe **philo);
-int				ft_set_table(t_setting setting, t_philosophe ***philo, t_fork ***array_fork);
+int				ft_create_philo(t_setting *setting, t_fork *array_fork, t_philosophe **philo);
+int				ft_set_table(t_setting *setting, t_philosophe ***philo, t_fork ***array_fork);
 //free_struct.c
 int				ft_free_fork(int nb_philo, t_fork **array_fork);
 int				ft_free_philo(int nb_philo, t_philosophe **philo);
 int				ft_free_struct(t_setting setting, t_philosophe **philo, t_fork **array_fork);
 //time.c
 long int		gettimestamp(struct timeval);
+//lunch.c
+int				lunch_time(t_setting *setting, t_philosophe **philo);
+//philo.c
+void			ft_write(t_philosophe *philo, char *str);
+int				ft_taking_fork(t_philosophe *philo);
+int				ft_eating(t_philosophe *philo);
+void			*ft_philo(void *data);
 #endif
