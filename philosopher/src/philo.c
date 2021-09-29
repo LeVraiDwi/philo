@@ -3,8 +3,7 @@
 void	ft_write(t_philosophe *philo, char *str)
 {
 	pthread_mutex_lock(&philo->setting->write);
-	printf("sec:%ld userc:%ld\n", philo->setting->start.tv_sec, philo->setting->start.tv_usec);
-	printf("%ld %d %s\n", gettimestamp(philo->setting->start), philo->name, str);
+	printf("%ld %d %s\n", gettimestamp(philo->setting->start) / 1000, philo->name, str);
 	pthread_mutex_unlock(&philo->setting->write);
 }
 
@@ -51,7 +50,6 @@ void	*ft_philo(void *data)
 		ft_taking_fork(philo);
 		ft_eating(philo);
 		i++;
-		usleep(1000);
 	}
 	return(0);
 }

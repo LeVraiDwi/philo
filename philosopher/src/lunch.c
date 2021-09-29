@@ -17,7 +17,7 @@ int	lunch_time(t_setting *setting, t_philosophe **philo)
 		i++;
 	}
 	i = 0;
-	while (i < 0)
+	while (i < philo[0]->setting->time[0])
 	{
 		if (pthread_join(philo[i]->thread, (void *)&j))
 			return (0);
