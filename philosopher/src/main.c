@@ -29,24 +29,24 @@ int	main(int argc, char **argv)
 	t_setting			setting;
 	t_fork				**array_fork;
 	t_philosophe		**philo;
+	struct timeval		time;
 
-	ft_init_setting(&setting);
+	if(!ft_init_setting(&setting))
+		return (ft_error(1));
 	array_fork = 0;
 	philo = 0;
 	if (ft_good_format(argc, argv, &setting))
 	{
-		array_fork = (t_fork **)malloc(sizeof(t_fork *) * setting.time[0]);
-		if (!array_fork)
-			return (ft_error(1));
-		if (!ft_create_fork(setting.time[0], array_fork))
-			return (ft_error(1));
-		printf("setting out:%d\n", setting.time[0]);
-		philo = (t_philosophe **)malloc(sizeof(t_philosophe *) * setting.time[0]);
-		if (!philo)
-			return (ft_error(1));
-		if (!ft_create_philo(setting, *array_fork, philo))
-			return(ft_error(2));
-		printf("fin\n");
+		if (!ft_set_table(setting, &philo, &array_fork))
+			return (0);
+		gettimeofday(&time, NULL);
+		while (1)
+		{
+			usleep(500000);
+			printf("time:%li\n", gettimestamp(time));
+		}
+//		if (!lunch_time(setting, philo))
+		ft_free_struct(setting, philo, array_fork);
 	}
 	else
 		return (ft_error(0));

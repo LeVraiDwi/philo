@@ -24,6 +24,8 @@ int	ft_good_format(int argc, char **argv, t_setting *setting)
 		if (!ft_parsing(argc, argv, setting))
 			return (0);
 	}
+	if (setting->time[0] <= 0)
+		return (0);
 	return (1);
 }
 
