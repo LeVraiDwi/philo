@@ -6,7 +6,7 @@
 /*   By: tcosse <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/27 15:34:39 by tcosse            #+#    #+#             */
-/*   Updated: 2021/10/04 17:08:25 by tcosse           ###   ########.fr       */
+/*   Updated: 2021/10/04 17:54:03 by tcosse           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,4 +79,7 @@ int				ft_taking_fork(t_philosophe *philo);
 int				ft_eating(t_philosophe *philo);
 void			*ft_philo(void *data);
 int				ft_sleeping(t_philosophe *philo);
+//check.c
+void			*ft_check(void *data);
+int				ft_check_philo(t_philosophe *philo, int *done_eat);
 #endif

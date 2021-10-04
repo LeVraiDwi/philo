@@ -1,29 +1,39 @@
-#include "philosophr.c"
+#include "philosopher.h"
 
 void	*ft_check(void *data)
 {
-	int	i;
+	int				i;
 	t_philosophe	**philo;
-	int	done_eat;
+	int				done_eat;
 
-	i = 0;
-	eat = 0;
 	philo = (t_philosophe **)data;
 	while (1)
 	{
-		if (i >= philo[0]->setting->time[0])
+		done_eat = 0;
+		i = 0;
+		while (i < philo[0]->setting->time[0])
 		{
-			if (done_eat + 1 == philo->setting->time[4])
-			{
-				philo->setting->end  = 0;
-				return (&done_eat);
-			}
-			else
-				eat = 0;
-			i = 0;
-		}
 			if (!ft_check_philo(philo[i], &done_eat))
 				return (0);
-		i++;
+			i++;
+		}
+		if (done_eat >= philo[0]->setting->time[0])
+		{
+			philo[0]->setting->end = 1;
+			return (0);
+		}
 	}
+}
+
+int	ft_check_philo(t_philosophe *philo, int *done_eat)
+{
+	if (gettimestamp(philo->alive) >= philo->setting->time[1])
+	{
+		ft_write(philo, DIE);
+		philo->setting->end = 1;
+		return (0);
+	}
+	if (philo->setting->time[4] >= 0 && philo->eat_time >= philo->setting->time[4])
+		*done_eat = *done_eat + 1;
+	return (1);
 }

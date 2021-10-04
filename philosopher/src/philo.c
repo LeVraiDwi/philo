@@ -3,7 +3,6 @@
 void	ft_write(t_philosophe *philo, char *str)
 {
 	pthread_mutex_lock(&philo->setting->write);
-	if (!philo->setting->end)
 		printf("%.4ld %d %s\n", gettimestamp(philo->setting->start), philo->name, str);
 	pthread_mutex_unlock(&philo->setting->write);
 }

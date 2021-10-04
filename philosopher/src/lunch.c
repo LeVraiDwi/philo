@@ -2,8 +2,9 @@
 
 int	lunch_time(t_setting *setting, t_philosophe **philo)
 {
-	int	i;
-	int	j;
+	int			i;
+	int			j;
+	pthread_t	thread;
 
 	i = 0;
 	j = 0;
@@ -17,6 +18,10 @@ int	lunch_time(t_setting *setting, t_philosophe **philo)
 			return (0);
 		i++;
 	}
+	if(pthread_create(&thread, 0, ft_check, (void *)philo))
+		return (0);
+	if (pthread_detach(thread))
+		return (0);
 	i = 0;
 	while (i < philo[0]->setting->time[0])
 	{

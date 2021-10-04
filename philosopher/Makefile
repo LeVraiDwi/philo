@@ -7,6 +7,7 @@ SRC_PATH = ./src
 SRC_NAME =	main.c parsing.c struct.c\
 			error.c set_table.c free_struct.c\
 			time.c lunch.c philo.c\
+			check.c\
 
 
 OBJS = ${SRCS:.c=.o}
