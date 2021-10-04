@@ -7,11 +7,12 @@ int	lunch_time(t_setting *setting, t_philosophe **philo)
 
 	i = 0;
 	j = 0;
-	if(gettimeofday(&setting->start, NULL) == -1)
+	if(gettimeofday(&philo[0]->setting->start, NULL) == -1)
 		return (0);
-	setting->death = 0;
+	setting->end = 0;
 	while (i < philo[0]->setting->time[0])
 	{
+		philo[i]->name = i + 1;
 		if (pthread_create(&philo[i]->thread, 0, ft_philo, (void *)philo[i]))
 			return (0);
 		i++;
@@ -21,8 +22,6 @@ int	lunch_time(t_setting *setting, t_philosophe **philo)
 	{
 		if (pthread_join(philo[i]->thread, (void *)&j))
 			return (0);
-		if (j == -1)
-			setting->death = 1;
 		i++;
 	}
 	return (1);

@@ -6,7 +6,7 @@
 /*   By: tcosse <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/27 15:34:25 by tcosse            #+#    #+#             */
-/*   Updated: 2021/09/27 16:54:49 by tcosse           ###   ########.fr       */
+/*   Updated: 2021/10/04 15:33:28 by tcosse           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,6 @@ int	main(int argc, char **argv)
 	{
 		if (!ft_set_table(&setting, &philo, &array_fork))
 			return (0);
-		printf("allo1: %d\n", philo[0]->setting->time[0]);
 		if (!lunch_time(&setting, philo))
 			return (0);
 		ft_free_struct(setting, philo, array_fork);

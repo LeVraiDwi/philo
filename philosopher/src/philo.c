@@ -3,7 +3,8 @@
 void	ft_write(t_philosophe *philo, char *str)
 {
 	pthread_mutex_lock(&philo->setting->write);
-	printf("%ld %d %s\n", gettimestamp(philo->setting->start) / 1000, philo->name, str);
+	if (!philo->setting->end)
+		printf("%.4ld %d %s\n", gettimestamp(philo->setting->start), philo->name, str);
 	pthread_mutex_unlock(&philo->setting->write);
 }
 
@@ -16,16 +17,30 @@ int	ft_taking_fork(t_philosophe *philo)
 	return (1);
 }
 
+int	ft_sleeping(t_philosophe *philo)
+{
+	struct timeval	start;
+
+	gettimeofday(&start, NULL);
+	ft_write(philo, SLEEP);
+	while (gettimestamp(start) < philo->setting->time[3] && !philo->setting->end)
+	{
+		usleep(1000);
+	}
+	return (1);
+}
+
 int	ft_eating(t_philosophe *philo)
 {
 	struct timeval	start;
 
-	if (!philo->setting->death)
+	if (!philo->setting->end)
 	{
-		printf("%d\n", philo->setting->death);
-		ft_write(philo, EAT);
 		gettimeofday(&start, NULL);
-		while (gettimestamp(start) < philo->setting->time[2] && philo->setting->death)
+		gettimeofday(&philo->alive, NULL);
+		philo->eat_time++;
+		ft_write(philo, EAT);
+		while ((gettimestamp(start)) < philo->setting->time[2] && !philo->setting->end)
 		{
 			usleep(1000);
 		}
@@ -45,10 +60,12 @@ void	*ft_philo(void *data)
 	philo = (t_philosophe *)data;
 	gettimeofday(&philo->alive, NULL);
 	setting = philo->setting;
-	while (!setting->death && i != setting->time[4])
+	while (!setting->end)
 	{
 		ft_taking_fork(philo);
 		ft_eating(philo);
+		ft_sleeping(philo);
+		ft_write(philo, THINK);
 		i++;
 	}
 	return(0);

@@ -6,7 +6,7 @@
 /*   By: tcosse <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/27 15:34:39 by tcosse            #+#    #+#             */
-/*   Updated: 2021/09/27 17:28:58 by tcosse           ###   ########.fr       */
+/*   Updated: 2021/10/04 17:08:25 by tcosse           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@
 # define FORK "has taken a fork"
 # define EAT "is eating"
 # define SLEEP "is sleeping"
-# define THIMK "is thinking"
+# define THINK "is thinking"
 # define DIE "died"
 
 typedef struct s_fork
@@ -33,7 +33,8 @@ typedef struct s_fork
 
 typedef struct s_setting
 {
-	int					death;
+	int					end;
+	long int			nb_finisheat;
 	int					time[5];
 	pthread_mutex_t		write;
 	struct timeval		start;
@@ -41,6 +42,7 @@ typedef struct s_setting
 
 typedef struct s_philosophe
 {
+	int					eat_time;
 	int					name;
 	pthread_t			thread;
 	t_setting			*setting;
@@ -76,4 +78,5 @@ void			ft_write(t_philosophe *philo, char *str);
 int				ft_taking_fork(t_philosophe *philo);
 int				ft_eating(t_philosophe *philo);
 void			*ft_philo(void *data);
+int				ft_sleeping(t_philosophe *philo);
 #endif
