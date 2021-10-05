@@ -1,9 +1,21 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   free_struct.c                                      :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: tcosse <marvin@42.fr>                      +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2021/10/05 15:52:32 by tcosse            #+#    #+#             */
+/*   Updated: 2021/10/05 16:01:21 by tcosse           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "philosopher.h"
 
 int	ft_free_fork(int nb_philo, t_fork **array_fork)
 {
 	int	i;
-	
+
 	i = 0;
 	while (i < nb_philo && array_fork != 0 && array_fork[i] != 0)
 	{
@@ -19,7 +31,7 @@ int	ft_free_fork(int nb_philo, t_fork **array_fork)
 
 int	ft_free_philo(int nb_philo, t_philosophe **philo)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	if (!philo)

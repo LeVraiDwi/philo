@@ -6,7 +6,7 @@
 /*   By: tcosse <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/27 16:09:21 by tcosse            #+#    #+#             */
-/*   Updated: 2021/09/27 16:27:17 by tcosse           ###   ########.fr       */
+/*   Updated: 2021/10/05 16:14:18 by tcosse           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ int	ft_good_format(int argc, char **argv, t_setting *setting)
 	i = 1;
 	if (argc != 5 && argc != 6)
 		return (0);
-	else 
+	else
 	{
 		if (!ft_parsing(argc, argv, setting))
 			return (0);
@@ -29,7 +29,7 @@ int	ft_good_format(int argc, char **argv, t_setting *setting)
 	return (1);
 }
 
-int ft_isdigit(char c)
+int	ft_isdigit(char c)
 {
 	if (c < '0' || c > '9')
 		return (0);
@@ -46,7 +46,7 @@ int	ft_atoi(char *str)
 	i = 0;
 	l = 0;
 	if (!str || !*str)
-		return (-1);	
+		return (-1);
 	while (str[i])
 	{
 		if (!ft_isdigit(str[i]))

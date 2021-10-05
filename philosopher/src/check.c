@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   check.c                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: tcosse <marvin@42.fr>                      +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2021/10/05 15:52:12 by tcosse            #+#    #+#             */
+/*   Updated: 2021/10/05 16:00:53 by tcosse           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "philosopher.h"
 
 void	*ft_check(void *data)
@@ -33,7 +45,8 @@ int	ft_check_philo(t_philosophe *philo, int *done_eat)
 		philo->setting->end = 1;
 		return (0);
 	}
-	if (philo->setting->time[4] >= 0 && philo->eat_time >= philo->setting->time[4])
+	if (philo->setting->time[4] >= 0
+		&& philo->eat_time >= philo->setting->time[4])
 		*done_eat = *done_eat + 1;
 	return (1);
 }

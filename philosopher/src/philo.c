@@ -1,9 +1,23 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   philo.c                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: tcosse <marvin@42.fr>                      +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2021/10/05 15:53:09 by tcosse            #+#    #+#             */
+/*   Updated: 2021/10/05 16:14:43 by tcosse           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "philosopher.h"
 
 void	ft_write(t_philosophe *philo, char *str)
 {
 	pthread_mutex_lock(&philo->setting->write);
-		printf("%.4ld %d %s\n", gettimestamp(philo->setting->start), philo->name, str);
+	if (!philo->setting->end)
+		printf("%.4ld %d %s\n",
+			gettimestamp(philo->setting->start), philo->name, str);
 	pthread_mutex_unlock(&philo->setting->write);
 }
 
@@ -22,7 +36,8 @@ int	ft_sleeping(t_philosophe *philo)
 
 	gettimeofday(&start, NULL);
 	ft_write(philo, SLEEP);
-	while (gettimestamp(start) < philo->setting->time[3] && !philo->setting->end)
+	while (gettimestamp(start) < philo->setting->time[3]
+		&& !philo->setting->end)
 	{
 		usleep(1000);
 	}
@@ -35,11 +50,12 @@ int	ft_eating(t_philosophe *philo)
 
 	if (!philo->setting->end)
 	{
-		gettimeofday(&start, NULL);
 		gettimeofday(&philo->alive, NULL);
+		gettimeofday(&start, NULL);
 		philo->eat_time++;
 		ft_write(philo, EAT);
-		while ((gettimestamp(start)) < philo->setting->time[2] && !philo->setting->end)
+		while ((gettimestamp(start)) < philo->setting->time[2]
+			&& !philo->setting->end)
 		{
 			usleep(1000);
 		}
@@ -52,12 +68,11 @@ int	ft_eating(t_philosophe *philo)
 void	*ft_philo(void *data)
 {
 	int				i;
-	t_philosophe 	*philo;
+	t_philosophe	*philo;
 	t_setting		*setting;
 
 	i = 0;
 	philo = (t_philosophe *)data;
-	gettimeofday(&philo->alive, NULL);
 	setting = philo->setting;
 	while (!setting->end)
 	{
@@ -67,5 +82,5 @@ void	*ft_philo(void *data)
 		ft_write(philo, THINK);
 		i++;
 	}
-	return(0);
+	return (0);
 }

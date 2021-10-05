@@ -6,7 +6,7 @@
 /*   By: tcosse <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/27 16:09:27 by tcosse            #+#    #+#             */
-/*   Updated: 2021/10/04 16:52:59 by tcosse           ###   ########.fr       */
+/*   Updated: 2021/10/05 16:17:43 by tcosse           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ int	ft_init_setting(t_setting *setting)
 	i = 0;
 	while (i < 5)
 		setting->time[i++] = -1;
-	if(pthread_mutex_init(&setting->write, 0))
+	if (pthread_mutex_init(&setting->write, 0))
 		return (0);
 	setting->end = 0;
 	setting->nb_finisheat = 0;
@@ -28,12 +28,13 @@ int	ft_init_setting(t_setting *setting)
 
 int	ft_init_fork(t_fork *fork)
 {
-	if(pthread_mutex_init(&fork->mutex, 0))
+	if (pthread_mutex_init(&fork->mutex, 0))
 		return (0);
 	return (1);
 }
 
-void	ft_init_philo(t_philosophe *philo, t_setting *setting, t_fork *array_fork, int i)
+void	ft_init_philo(t_philosophe *philo,
+		t_setting *setting, t_fork *array_fork, int i)
 {
 	philo->name = i + 1;
 	philo->thread = 0;
