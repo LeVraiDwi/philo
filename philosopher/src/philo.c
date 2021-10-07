@@ -6,7 +6,7 @@
 /*   By: tcosse <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/05 15:53:09 by tcosse            #+#    #+#             */
-/*   Updated: 2021/10/07 11:26:14 by tcosse           ###   ########.fr       */
+/*   Updated: 2021/10/07 11:48:00 by tcosse           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,16 @@ int	ft_taking_fork(t_philosophe *philo)
 {
 	pthread_mutex_lock(&philo->fork[0]->mutex);
 	ft_write(philo, FORK);
-	pthread_mutex_lock(&philo->fork[1]->mutex);
+	if (philo->setting->time[0] != 1)
+		pthread_mutex_lock(&philo->fork[1]->mutex);
+	else
+	{
+		while (!philo->setting->end)
+		{
+			usleep(10);
+		}
+		pthread_mutex_unlock(&philo->fork[0]->mutex);
+	}
 	ft_write(philo, FORK);
 	return (1);
 }

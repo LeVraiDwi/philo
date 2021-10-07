@@ -6,7 +6,7 @@
 /*   By: tcosse <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/27 15:34:25 by tcosse            #+#    #+#             */
-/*   Updated: 2021/10/07 10:43:47 by tcosse           ###   ########.fr       */
+/*   Updated: 2021/10/07 11:47:04 by tcosse           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,8 @@ int	main(int argc, char **argv)
 	philo = 0;
 	if (ft_good_format(argc, argv, &setting))
 	{
+		if (setting.time[4] == 0)
+			return (1);
 		if (!ft_set_table(&setting, &philo, &array_fork))
 			return (0);
 		if (!lunch_time(&setting, philo))
