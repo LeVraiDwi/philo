@@ -6,7 +6,7 @@
 /*   By: tcosse <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/05 15:52:41 by tcosse            #+#    #+#             */
-/*   Updated: 2021/10/05 16:09:26 by tcosse           ###   ########.fr       */
+/*   Updated: 2021/10/07 10:35:55 by tcosse           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ int	lunch_time(t_setting *setting, t_philosophe **philo)
 	while (i < philo[0]->setting->time[0])
 	{
 		if (pthread_join(philo[i]->thread, (void *)&j))
-			return (0);
+			return (1);
 		i++;
 	}
 	return (1);

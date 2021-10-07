@@ -6,7 +6,7 @@
 /*   By: tcosse <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/05 15:53:09 by tcosse            #+#    #+#             */
-/*   Updated: 2021/10/05 16:14:43 by tcosse           ###   ########.fr       */
+/*   Updated: 2021/10/07 11:26:14 by tcosse           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,6 +54,8 @@ int	ft_eating(t_philosophe *philo)
 		gettimeofday(&start, NULL);
 		philo->eat_time++;
 		ft_write(philo, EAT);
+		if (philo->eat_time == philo->setting->time[4])
+			ft_finish_eat(philo);
 		while ((gettimestamp(start)) < philo->setting->time[2]
 			&& !philo->setting->end)
 		{

@@ -27,10 +27,10 @@ RM = rm -f
 CD = cd
 
 .c.o:
-			${CC} ${FLAGS} ${HEADER} -c $< -o $@ ${DEBUG}
+			${CC} ${FLAGS} ${HEADER} -c $< -o $@
 
 ${NAME}:	${OBJS}
-			${CC} -o ${NAME} ${OBJS} ${FLAGS} -lpthread ${DEBUG}
+			${CC} -o ${NAME} ${OBJS} ${FLAGS} -lpthread
 
 all:		${NAME}
 
