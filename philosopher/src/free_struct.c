@@ -6,7 +6,7 @@
 /*   By: tcosse <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/05 15:52:32 by tcosse            #+#    #+#             */
-/*   Updated: 2021/10/05 16:01:21 by tcosse           ###   ########.fr       */
+/*   Updated: 2021/10/12 17:22:35 by tcosse           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,7 @@ int	ft_free_philo(int nb_philo, t_philosophe **philo)
 		return (0);
 	while (i < nb_philo)
 	{
+		pthread_mutex_destroy(&philo[i]->m_alive);
 		free(philo[i]);
 		i++;
 	}
@@ -50,5 +51,7 @@ int	ft_free_struct(t_setting setting, t_philosophe **philo, t_fork **array_fork)
 	ft_free_fork(setting.time[0], array_fork);
 	ft_free_philo(setting.time[0], philo);
 	pthread_mutex_destroy(&setting.write);
+	pthread_mutex_destroy(&setting.eat);
+	pthread_mutex_destroy(&setting.m_end);
 	return (0);
 }

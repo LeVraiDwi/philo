@@ -6,7 +6,7 @@
 /*   By: tcosse <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/05 15:53:09 by tcosse            #+#    #+#             */
-/*   Updated: 2021/10/07 11:48:00 by tcosse           ###   ########.fr       */
+/*   Updated: 2021/10/12 18:46:29 by tcosse           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,11 +45,14 @@ int	ft_sleeping(t_philosophe *philo)
 
 	gettimeofday(&start, NULL);
 	ft_write(philo, SLEEP);
+	pthread_mutex_lock(&philo->setting->m_end);
 	while (gettimestamp(start) < philo->setting->time[3]
 		&& !philo->setting->end)
 	{
-		usleep(1000);
+		pthread_mutex_unlock(&philo->setting->m_end);
+		pthread_mutex_lock(&philo->setting->m_end);
 	}
+	pthread_mutex_unlock(&philo->setting->m_end);
 	return (1);
 }
 
@@ -59,17 +62,22 @@ int	ft_eating(t_philosophe *philo)
 
 	if (!philo->setting->end)
 	{
+		pthread_mutex_lock(&philo->m_alive);
 		gettimeofday(&philo->alive, NULL);
+		pthread_mutex_unlock(&philo->m_alive);
 		gettimeofday(&start, NULL);
 		philo->eat_time++;
 		ft_write(philo, EAT);
 		if (philo->eat_time == philo->setting->time[4])
 			ft_finish_eat(philo);
+		pthread_mutex_lock(&philo->setting->m_end);
 		while ((gettimestamp(start)) < philo->setting->time[2]
 			&& !philo->setting->end)
 		{
-			usleep(1000);
+			pthread_mutex_unlock(&philo->setting->m_end);
+			pthread_mutex_lock(&philo->setting->m_end);
 		}
+		pthread_mutex_unlock(&philo->setting->m_end);
 	}
 	pthread_mutex_unlock(&philo->fork[0]->mutex);
 	pthread_mutex_unlock(&philo->fork[1]->mutex);
@@ -78,20 +86,19 @@ int	ft_eating(t_philosophe *philo)
 
 void	*ft_philo(void *data)
 {
-	int				i;
 	t_philosophe	*philo;
-	t_setting		*setting;
 
-	i = 0;
 	philo = (t_philosophe *)data;
-	setting = philo->setting;
-	while (!setting->end)
+	pthread_mutex_lock(&philo->setting->m_end);
+	while (!philo->setting->end)
 	{
+		pthread_mutex_unlock(&philo->setting->m_end);
 		ft_taking_fork(philo);
 		ft_eating(philo);
 		ft_sleeping(philo);
 		ft_write(philo, THINK);
-		i++;
+		pthread_mutex_lock(&philo->setting->m_end);
 	}
+	pthread_mutex_unlock(&philo->setting->m_end);
 	return (0);
 }

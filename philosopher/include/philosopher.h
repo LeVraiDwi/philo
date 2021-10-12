@@ -6,7 +6,7 @@
 /*   By: tcosse <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/27 15:34:39 by tcosse            #+#    #+#             */
-/*   Updated: 2021/10/07 11:14:19 by tcosse           ###   ########.fr       */
+/*   Updated: 2021/10/12 17:16:36 by tcosse           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,8 @@ typedef struct s_setting
 	long int			nb_finisheat;
 	int					time[5];
 	pthread_mutex_t		write;
+	pthread_mutex_t		eat;
+	pthread_mutex_t		m_end;
 	struct timeval		start;
 }				t_setting;
 
@@ -50,6 +52,7 @@ typedef struct s_philosophe
 	pthread_t			thread;
 	t_setting			*setting;
 	t_fork				*fork[2];
+	pthread_mutex_t		m_alive;
 	struct timeval		alive;
 }				t_philosophe;
 
@@ -63,7 +66,7 @@ int				ft_parsing(int argc, char **argv, t_setting *setting);
 //struct.c
 int				ft_init_setting(t_setting *setting);
 int				ft_init_fork(t_fork *fork);
-void			ft_init_philo(t_philosophe *philo,
+int				ft_init_philo(t_philosophe *philo,
 					t_setting *setting, t_fork *array_fork, int i);
 //set_table.c
 int				ft_create_fork(int nb_philo, t_fork **array_fork);

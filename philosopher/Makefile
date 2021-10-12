@@ -18,7 +18,7 @@ FLAGS = -Wall -Wextra -Werror
 
 HEADER = -I "./include"
 
-DEBUG = -g -std=c11 -fsanitize=address
+DEBUG = -g -std=c11 -fsanitize=thread
 
 CC = clang
 

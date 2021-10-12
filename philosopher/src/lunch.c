@@ -6,7 +6,7 @@
 /*   By: tcosse <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/05 15:52:41 by tcosse            #+#    #+#             */
-/*   Updated: 2021/10/07 10:35:55 by tcosse           ###   ########.fr       */
+/*   Updated: 2021/10/12 18:05:07 by tcosse           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ int	ft_launch_philo(t_philosophe **philo)
 int	lunch_time(t_setting *setting, t_philosophe **philo)
 {
 	int			i;
-	int			j;
+	void		*j;
 	pthread_t	thread;
 
 	i = 0;
@@ -48,7 +48,7 @@ int	lunch_time(t_setting *setting, t_philosophe **philo)
 	i = 0;
 	while (i < philo[0]->setting->time[0])
 	{
-		if (pthread_join(philo[i]->thread, (void *)&j))
+		if (pthread_join(philo[i]->thread, j))
 			return (1);
 		i++;
 	}

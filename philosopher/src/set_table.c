@@ -6,7 +6,7 @@
 /*   By: tcosse <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/05 15:53:16 by tcosse            #+#    #+#             */
-/*   Updated: 2021/10/07 11:38:57 by tcosse           ###   ########.fr       */
+/*   Updated: 2021/10/12 17:17:54 by tcosse           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,8 @@ int	ft_create_philo(t_setting *setting,
 				* setting->time[0]);
 		if (!*philo)
 			return (ft_free_philo(i - 1, philo));
-		ft_init_philo(philo[i], setting, array_fork, i);
+		if (!ft_init_philo(philo[i], setting, array_fork, i))
+			return (0);
 		i++;
 	}
 	return (1);
