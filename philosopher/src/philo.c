@@ -6,7 +6,7 @@
 /*   By: tcosse <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/05 15:53:09 by tcosse            #+#    #+#             */
-/*   Updated: 2021/10/12 18:46:29 by tcosse           ###   ########.fr       */
+/*   Updated: 2021/10/13 13:03:58 by tcosse           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,6 +62,9 @@ int	ft_eating(t_philosophe *philo)
 
 	if (!philo->setting->end)
 	{
+		pthread_mutex_lock(&philo->setting->write);
+		printf("philo: %d eat\n", philo->name);
+		pthread_mutex_unlock(&philo->setting->write);
 		pthread_mutex_lock(&philo->m_alive);
 		gettimeofday(&philo->alive, NULL);
 		pthread_mutex_unlock(&philo->m_alive);

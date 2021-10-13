@@ -6,7 +6,7 @@
 /*   By: tcosse <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/05 15:52:12 by tcosse            #+#    #+#             */
-/*   Updated: 2021/10/12 18:29:01 by tcosse           ###   ########.fr       */
+/*   Updated: 2021/10/13 13:04:23 by tcosse           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ void	*ft_check(void *data)
 	t_philosophe	**philo;
 
 	philo = (t_philosophe **)data;
-	while (1)
+	while (philo[0]->setting->end == 0)
 	{
 		i = 0;
 		while (i < philo[0]->setting->time[0])
@@ -28,6 +28,7 @@ void	*ft_check(void *data)
 			i++;
 		}
 	}
+	return (0);
 }
 
 int	ft_check_philo(t_philosophe *philo)
