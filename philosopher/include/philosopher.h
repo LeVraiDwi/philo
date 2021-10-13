@@ -6,7 +6,7 @@
 /*   By: tcosse <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/27 15:34:39 by tcosse            #+#    #+#             */
-/*   Updated: 2021/10/12 17:16:36 by tcosse           ###   ########.fr       */
+/*   Updated: 2021/10/13 14:37:37 by tcosse           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,11 +29,6 @@
 time_to_sleep [number_of_times_each_philosopher_must_eat].\
 il doit y avoir 1 philosophe minimun, Range : [0, %d]\n"
 
-typedef struct s_fork
-{
-	pthread_mutex_t	mutex;
-}				t_fork;
-
 typedef struct s_setting
 {
 	int					end;
@@ -51,7 +46,7 @@ typedef struct s_philosophe
 	int					name;
 	pthread_t			thread;
 	t_setting			*setting;
-	t_fork				*fork[2];
+	pthread_mutex_t		*fork[2];
 	pthread_mutex_t		m_alive;
 	struct timeval		alive;
 }				t_philosophe;
@@ -65,20 +60,19 @@ int				ft_atoi(char *str);
 int				ft_parsing(int argc, char **argv, t_setting *setting);
 //struct.c
 int				ft_init_setting(t_setting *setting);
-int				ft_init_fork(t_fork *fork);
 int				ft_init_philo(t_philosophe *philo,
-					t_setting *setting, t_fork *array_fork, int i);
+					t_setting *setting, pthread_mutex_t **array_fork, int i);
 //set_table.c
-int				ft_create_fork(int nb_philo, t_fork **array_fork);
+pthread_mutex_t	**ft_create_fork(int nb_philo);
 int				ft_create_philo(t_setting *setting,
-					t_fork *array_fork, t_philosophe **philo);
+					pthread_mutex_t **array_fork, t_philosophe **philo);
 int				ft_set_table(t_setting *setting,
-					t_philosophe ***philo, t_fork ***array_fork);
+					t_philosophe ***philo, pthread_mutex_t ***array_fork);
 //free_struct.c
-int				ft_free_fork(int nb_philo, t_fork **array_fork);
+int				ft_free_fork(int nb_philo, pthread_mutex_t **array_fork);
 int				ft_free_philo(int nb_philo, t_philosophe **philo);
 int				ft_free_struct(t_setting setting,
-					t_philosophe **philo, t_fork **array_fork);
+					t_philosophe **philo, pthread_mutex_t **array_fork);
 //time.c
 long int		gettimestamp(struct timeval start);
 //lunch.c

@@ -6,7 +6,7 @@
 /*   By: tcosse <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/27 15:34:25 by tcosse            #+#    #+#             */
-/*   Updated: 2021/10/13 12:33:40 by tcosse           ###   ########.fr       */
+/*   Updated: 2021/10/13 14:32:50 by tcosse           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 int	main(int argc, char **argv)
 {
 	t_setting			setting;
-	t_fork				**array_fork;
+	pthread_mutex_t		**array_fork;
 	t_philosophe		**philo;
 
 	if (!ft_init_setting(&setting))

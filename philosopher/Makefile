@@ -18,7 +18,9 @@ FLAGS = -Wall -Wextra -Werror
 
 HEADER = -I "./include"
 
-DEBUG = -g -std=c11 -fsanitize=thread
+DEBUG = -g -std=c11
+
+FTHREAD = -fsanitize=thread
 
 CC = clang
 
@@ -27,10 +29,10 @@ RM = rm -f
 CD = cd
 
 .c.o:
-			${CC} ${FLAGS} ${HEADER} -c $< -o $@
+			${CC} ${FLAGS} ${HEADER} -c $< -o $@ ${FTHREAD}
 
 ${NAME}:	${OBJS}
-			${CC} -o ${NAME} ${OBJS} ${FLAGS} -lpthread
+			${CC} -o ${NAME} ${OBJS} ${FLAGS} -lpthread ${FTHREAD}
 
 all:		${NAME}
 
@@ -42,4 +44,4 @@ fclean:		clean
 
 re:			fclean all
 
-.PHONY =	all clean fclean re
+F.PHONY =	all clean fclean re

@@ -6,7 +6,7 @@
 /*   By: tcosse <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/05 15:52:41 by tcosse            #+#    #+#             */
-/*   Updated: 2021/10/13 13:04:57 by tcosse           ###   ########.fr       */
+/*   Updated: 2021/10/13 14:53:32 by tcosse           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,10 +19,10 @@ int	ft_launch_philo(t_philosophe **philo)
 	i = 0;
 	while (i < philo[0]->setting->time[0])
 	{	
-		philo[i]->name = i + 1;
 		gettimeofday(&philo[i]->alive, NULL);
 		if (pthread_create(&philo[i]->thread, 0, ft_philo, (void *)philo[i]))
 			return (0);
+		usleep(500);
 		i++;
 	}
 	return (1);
