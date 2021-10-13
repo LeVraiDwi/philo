@@ -6,7 +6,7 @@
 /*   By: tcosse <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/05 15:53:09 by tcosse            #+#    #+#             */
-/*   Updated: 2021/10/13 14:48:59 by tcosse           ###   ########.fr       */
+/*   Updated: 2021/10/13 15:10:47 by tcosse           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,10 +32,14 @@ int	ft_taking_fork(t_philosophe *philo)
 	}
 	else
 	{
+		pthread_mutex_lock(&philo->setting->m_end);
 		while (!philo->setting->end)
 		{
+			pthread_mutex_unlock(&philo->setting->m_end);
 			usleep(10);
+			pthread_mutex_lock(&philo->setting->m_end);
 		}
+		pthread_mutex_unlock(&philo->setting->m_end);
 		pthread_mutex_unlock(philo->fork[0]);
 	}
 	return (1);

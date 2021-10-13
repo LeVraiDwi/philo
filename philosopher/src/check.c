@@ -6,7 +6,7 @@
 /*   By: tcosse <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/05 15:52:12 by tcosse            #+#    #+#             */
-/*   Updated: 2021/10/13 14:49:11 by tcosse           ###   ########.fr       */
+/*   Updated: 2021/10/13 15:03:30 by tcosse           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,8 +18,10 @@ void	*ft_check(void *data)
 	t_philosophe	**philo;
 
 	philo = (t_philosophe **)data;
+	pthread_mutex_lock(&philo[0]->setting->m_end);
 	while (philo[0]->setting->end == 0)
 	{
+		pthread_mutex_unlock(&philo[0]->setting->m_end);
 		i = 0;
 		while (i < philo[0]->setting->time[0])
 		{
@@ -27,7 +29,9 @@ void	*ft_check(void *data)
 				return (0);
 			i++;
 		}
+		pthread_mutex_lock(&philo[0]->setting->m_end);
 	}
+	pthread_mutex_unlock(&philo[0]->setting->m_end);
 	return (0);
 }
 
